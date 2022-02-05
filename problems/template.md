@@ -4,7 +4,7 @@ Problem Link:
 
 ## Solution I
 
-```python=
+```python
 
 ```
 
