@@ -1,7 +1,5 @@
 Problem Link: 
 
-
-
 ## Solution I
 
 ```python
