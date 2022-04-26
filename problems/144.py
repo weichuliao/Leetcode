@@ -2,15 +2,6 @@
 
 
 
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
-
-
-
 """
 Solution I: stack
 
@@ -21,6 +12,12 @@ Complexity Analysis:
 Runtime: 19 ms, faster than 99.49% of Python3 online submissions for Binary Tree Preorder Traversal.
 Memory Usage: 14 MB, less than 91.52% of Python3 online submissions for Binary Tree Preorder Traversal.
 """
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         if root is None:
@@ -36,6 +33,26 @@ class Solution:
                     stack.append(root.left)
         return output
 
+# another version
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        ans = []
+        stack = []
+        node = root
+        while node or stack:
+            while node:
+                ans.append(node.val)
+                stack.append(node)
+                node = node.left
+            node = stack.pop()
+            node = node.right
+        return ans
 
 
 """
@@ -44,6 +61,12 @@ Solution II: recursion
 42 ms, faster than 33.97% of Python3 online submissions for Binary Tree Preorder Traversal.
 Memory Usage: 14.2 MB, less than 47.59% of Python3 online submissions for Binary Tree Preorder Traversal.
 """
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         def preorder(node, res):

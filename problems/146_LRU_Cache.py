@@ -5,8 +5,6 @@
 # param_1 = obj.get(key)
 # obj.put(key,value)
 
-
-
 # Solution I: linked list and hash table
 # Runtime: 908 ms, faster than 53.71% of Python3 online submissions for LRU Cache.
 # Memory Usage: 77.2 MB, less than 5.57% of Python3 online submissions for LRU Cache.
@@ -19,7 +17,7 @@ class LinkedNode:
         
 class LRUCache:
     def __init__(self, capacity: int):
-        self.size = 0
+        self.size = 0  # current size
         self.capacity = capacity
         self.cache = {}
         self.head = LinkedNode(-1, -1)
@@ -82,6 +80,8 @@ class LRUCache(OrderedDict):
     def get(self, key: int) -> int:
         if key not in self:
             return -1
+        # The item is moved to the right end if last is true (the default)
+        # or to the beginning if last is false.
         self.move_to_end(key)
         return self[key]
 
@@ -90,4 +90,5 @@ class LRUCache(OrderedDict):
             self.move_to_end(key)
         self[key] = value
         if len(self) > self.capacity:
+            # LIFO order if last is true or FIFO order if false.
             self.popitem(last = False)

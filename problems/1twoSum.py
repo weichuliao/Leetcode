@@ -28,7 +28,21 @@
 
 
 
-# Solution I:
+# Solution II: brute force
+# Runtime: 4917 ms, faster than 18.36% of Python3 online submissions for Two Sum.
+# Memory Usage: 14.9 MB, less than 76.92% of Python3 online submissions for Two Sum.
+
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        for i in range(len(nums)):
+            for j in range(i + 1, len(nums)):
+                if nums[i] + nums[j] == target:
+                    return [i, j]
+        return []
+
+
+
+# Solution II: hash table
 # Runtime: 60 ms, faster than 74.73% of Python3 online submissions for Two Sum.
 # Memory Usage: 15.3 MB, less than 41.77% of Python3 online submissions for Two Sum.
 
@@ -45,8 +59,7 @@ class Solution:
 
 
 
-
-# Solution II:
+# Solution III:
 # Runtime: 68 ms, faster than 49.36% of Python3 online submissions for Two Sum.
 # Memory Usage: 15.5 MB, less than 14.57% of Python3 online submissions for Two Sum.
 
