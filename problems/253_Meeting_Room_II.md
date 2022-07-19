@@ -21,7 +21,7 @@ class Solution:
 - Time: $O(NlogN)$ for 1) sorting and 2) N extract-min operations and each operation takes O(logN).
 - Space: $O(N)$ for a min heap containing N elements in worst case.
 
----
+<br>
 
 ## Solution II
 chronological ordering

@@ -18,6 +18,7 @@ class Solution:
                 return False
             
             path.add((r, c))
+            # right, left, down, top
             res = (dfs(r + 1, c, i + 1) or
                    dfs(r - 1, c, i + 1) or
                    dfs(r, c + 1, i + 1) or

@@ -1,17 +1,10 @@
-# Problem Link: https://leetcode.com/problems/number-of-islands
-# Explanation: https://leetcode-cn.com/problems/number-of-islands/solution/dao-yu-shu-liang-by-leetcode/
+Problem Link: https://leetcode.com/problems/number-of-islands
+Explanation: https://leetcode-cn.com/problems/number-of-islands/solution/dao-yu-shu-liang-by-leetcode/
 
+## Solution I
+DFS
 
-"""
-Solution I: DFS
-
-Complexity Analysis:
-- Time: O(MN) where M denotes the number of columns and N the number of rows
-- Space: O(MN)，在最坏情况下，整个网格均为陆地，深度优先搜索的深度达到 MN
-
-Runtime: 300 ms, faster than 83.59% of Python3 online submissions for Number of Islands.
-Memory Usage: 17 MB, less than 31.90% of Python3 online submissions for Number of Islands.
-"""
+```python
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         def dfs(grid, r, c):
@@ -49,19 +42,18 @@ class Solution:
         self.dfs(grid, i-1, j)
         self.dfs(grid, i, j+1)
         self.dfs(grid, i, j-1)
+```
 
+#### Complexity Analysis:
+- Time: $O(MN)$ where M denotes the number of columns and N the number of rows
+- Space: $O(MN)$，在最坏情况下，整个网格均为陆地，深度优先搜索的深度达到 MN
 
+<br>
 
-"""
-Solution II: BFS
+## Solution II
+BFS
 
-Complexity Analysis:
-- Time: O(MN) where M denotes the number of columns and N the number of rows
-- Space: O(min(M,N))，在最坏情况下，整个网格均为陆地，队列的大小可以达到 min(M,N)
-
-Runtime: 402 ms, faster than 24.71% of Python3 online submissions for Number of Islands.
-Memory Usage: 16.5 MB, less than 93.43% of Python3 online submissions for Number of Islands.
-"""
+```python
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         rows = len(grid)
@@ -82,18 +74,50 @@ class Solution:
                                 grid[x][y] = "0"
         return islands
 
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if not grid: return 0
+        
+        rows, cols = len(grid), len(grid[0])
+        visited = set()
+        islands = 0
+        
+        def bfs(row, col):
+            q = deque()
+            q.append((row, col))  # first cell of each island
+            visited.add((row, col))
 
+            while q:
+                r, c = q.popleft()  # FIFO
 
-"""
-Solution III: Union Find
+                # check neighbors in order of right, left, up, and down
+                for dr, dc in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                    if (0 <= (r + dr) < rows and
+                       0 <= (c + dc) < cols and
+                       grid[r + dr][c + dc] == "1" and
+                       (r + dr, c + dc) not in visited):
+                        q.append((r + dr, c + dc))
+                        visited.add((r + dr, c + dc))
+        
+        for row in range(rows):
+            for col in range(cols):
+                if grid[row][col] == "1" and (row, col) not in visited:
+                    islands += 1
+                    bfs(row, col)
+                    
+        return islands
+```
 
-Complexity Analysis:
-- Time: O(MN×α(MN))，其中 M 和 N 分别为行数和列数。注意当使用路径压缩（见 find 函数）和按秩合并（见数组 rank）实现并查集时，单次操作的时间复杂度为 α(MN)，其中 α(x) 为反阿克曼函数，当自变量 x 的值在人类可观测的范围内（宇宙中粒子的数量）时，函数 α(x) 的值不会超过 5，因此也可以看成是常数时间复杂度。
-- Space: O(MN)，这是并查集需要使用的空间。
+#### Complexity Analysis:
+- Time: $O(MN)$ where M denotes the number of columns and N the number of rows
+- Space: $O(min(M,N))$，在最坏情况下，整个网格均为陆地，队列的大小可以达到 min(M,N)
 
-Runtime: 507 ms, faster than 10.11% of Python3 online submissions for Number of Islands.
-Memory Usage: 19.1 MB, less than 26.25% of Python3 online submissions for Number of Islands.
-"""
+<br>
+
+## Solution III
+Union Find
+
+```python
 class UnionFind:
     def __init__(self, grid):
         m, n = len(grid), len(grid[0])
@@ -140,3 +164,8 @@ class Solution:
                         if 0 <= x < rows and 0 <= y < cols and grid[x][y] == "1":
                             uf.union(r * cols + c, x * cols + y)
         return uf.getCount()
+```
+
+#### Complexity Analysis:
+- Time: $O(MN×α(MN))$，其中 M 和 N 分别为行数和列数。注意当使用路径压缩（见 find 函数）和按秩合并（见数组 rank）实现并查集时，单次操作的时间复杂度为 α(MN)，其中 α(x) 为反阿克曼函数，当自变量 x 的值在人类可观测的范围内（宇宙中粒子的数量）时，函数 α(x) 的值不会超过 5，因此也可以看成是常数时间复杂度。
+- Space: $O(MN)$，这是并查集需要使用的空间。i
