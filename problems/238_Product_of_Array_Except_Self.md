@@ -28,7 +28,7 @@ class Solution:
 - Time: $O(n)$
 - Space: $O(n)$
 
----
+<br>
 
 ## Solution II
 prefix product
